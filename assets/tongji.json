@@ -1,0 +1,35 @@
+{
+  "result": [
+    { 
+    	 "_id": 11,
+          "werks": "W120",
+          "name1": "W1942000101",
+          "sort": "001",
+          "sorttxt": "12.PNG",
+          "arbpl": "2015-05-04",
+          "arbpltxt": "18:02:51",
+          "find1":"",
+          "find2":"",
+          "find3":"",
+          "find4":"",
+	 	 "isfind":"",
+          "existnum":"",
+          "completenum":"",
+          "lastexistnum":"",
+          "notipercentages":"",
+          "notiontimepercent":"",
+          "notifindpercent":"",
+          "missnum":"",
+          "overdue1":"",
+          "overdue2":"",
+          "overdue3":"",
+          "overdue4":"",
+	  		"delay1":"",
+          "delay2":"",
+          "delay3":"",
+          "delay4":""
+    }
+  ],
+  "code": 0,
+  "msg": "ok"
+}
