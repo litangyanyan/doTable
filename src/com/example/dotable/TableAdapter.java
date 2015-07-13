@@ -3,9 +3,10 @@ package com.example.dotable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.dotable.MainActivity.TitleModel;
+
 import android.content.Context;
 import android.graphics.Color;
-
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,26 +17,72 @@ import android.widget.TextView;
 public class TableAdapter extends BaseAdapter{
 	private final static String TAG = TableAdapter.class.getSimpleName();
 	private Context context;
-	private List<TableRow> table;
+	private List<RowBean> rowBeans;
+	private List<TitleModel> titleModels;
 	
 	public TableAdapter(Context context) {
 		this.context = context;
-		table = new ArrayList<TableAdapter.TableRow>();
+		rowBeans = new ArrayList<RowBean>();
+		titleModels = new ArrayList<MainActivity.TitleModel>();
 	}
 	
-	public void bindTable(List<TableRow> table){
-		this.table = table;
+	public void bind(List<RowBean> rowBeans,List<TitleModel> titleModels){
+		this.rowBeans = rowBeans;
+		this.titleModels = titleModels;
+	}
+	
+	public void setTitleModels(List<TitleModel> titleModels){
+		this.titleModels = titleModels;
+	}
+	
+	public void addRowBean(RowBean rowBean){
+		this.rowBeans.add(rowBean);
+	}
+	
+	private TableRow getTableTitle(List<TitleModel> titleModels){
+		ArrayList<TableCell> cells = new ArrayList<TableCell>();
+		for (TitleModel titleModel : titleModels) {
+			if (titleModel.isShow) {
+				TableCell cell = new TableCell(titleModel.title, 150, 50, "#dddddd");
+				cells.add(cell);
+			}
+		}
+		return new TableRow(cells);
+	}
+	private TableRow getTableRow(RowBean rowBean,List<TitleModel> titleModels){
+		ArrayList<TableCell> cells = new ArrayList<TableAdapter.TableCell>();
+		for(TitleModel titleModel : titleModels){
+			if(titleModel.isShow){
+				cells.add(getTableCell(rowBean, titleModel));
+			}
+		}
+		return new TableRow(cells);
+	}
+	
+	private TableCell getTableCell(RowBean rowBean,TitleModel titleModel){
+		String value = rowBean.getValue(titleModel.key);
+		int width = 150;
+		int height = 50;
+		String background = "#ffffff";
+		if(titleModel.key.equals("werks")){
+			background = "#dddddd";
+		}
+		return new TableCell(value, width, height, background);
 	}
 	
 	@Override
 	public int getCount() {
-		return table.size();
+		return rowBeans.size() + 1;
 	}
 
 
 	@Override
 	public Object getItem(int position) {
-		return table.get(position);
+		if(position > 0){
+			return rowBeans.get(position);
+		}else{
+			return null;
+		}
 	} 
 
 
@@ -47,10 +94,15 @@ public class TableAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		TableRow tableRow = table.get(position);
-		return  new TableRowView(context, tableRow);   
-		
+		if(position == 0){
+			return new TableRowView(context, getTableTitle(titleModels));
+		}else{
+			RowBean rowBean = rowBeans.get(position - 1);
+			TableRow tableRow = getTableRow(rowBean, titleModels);
+			return  new TableRowView(context, tableRow);   
+		}		
 	}  
+	
 	
 	
 	 class TableRowView extends LinearLayout {  
@@ -75,21 +127,21 @@ public class TableAdapter extends BaseAdapter{
 	
 	
 	 static public class TableRow {  
-	        private ArrayList<TableCell> cell;  
-	        public TableRow(ArrayList<TableCell> cell) {  
-	            this.cell = cell;  
+	        private ArrayList<TableCell> cells;  
+	        public TableRow(ArrayList<TableCell> cells) {  
+	            this.cells = cells;  
 	        }  
 	        public int getSize() {  
-	            return cell.size();  
+	            return cells.size();  
 	        }  
 	        public TableCell getCellValue(int index) {  
-	            if (index >= cell.size())  
+	            if (index >= cells.size())  
 	                return null;  
-	            return cell.get(index);
+	            return cells.get(index);
 	        }
 			@Override
 			public String toString() {
-				return "TableRow [cell=" + cell + "]";
+				return "TableRow [cell=" + cells + "]";
 			}  
 	    }  
 
