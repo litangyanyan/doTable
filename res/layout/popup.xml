@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
+    android:layout_height="match_parent" 
+    android:background="#88000000"
     android:padding="20px" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
+        android:layout_marginTop="80px"
         android:padding="10px" >
 
         <GridView
             android:id="@+id/popup_main"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#ffffff"
+            android:layout_height="wrap_content" 
             android:columnWidth="90dp"
-            android:horizontalSpacing="10dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
+            android:horizontalSpacing="1dp"
+            android:verticalSpacing="3dp"
+            android:numColumns="7"
+            android:stretchMode="columnWidth" />
 
         <Button
             android:id="@+id/popup_submit"
@@ -27,9 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/popup_main"
-            android:background="#0000cc"
-            android:text="确定"
-            android:textColor="#ffffff" />
+            android:background="@drawable/pop_submit"/>
     </RelativeLayout>
 
 </RelativeLayout>
